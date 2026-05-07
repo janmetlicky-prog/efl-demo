@@ -1603,19 +1603,23 @@ const MONTHS = ['','Leden','Únor','Březen','Duben','Květen','Červen','Červe
 const GH_REPO    = 'janmetlicky-prog/efl-data';
 const GH_FILE    = 'data/db.json';
 const GH_BRANCH  = 'main';
+const IS_DEMO = true;
 const COLLEAGUE_GH_TOKEN = '';
 
-function ghToken()  { return localStorage.getItem('efl_gh_token') || ''; }
+function ghToken()  { if (IS_DEMO) return ''; return localStorage.getItem('efl_gh_token') || ''; }
 function ghSetSha(sha) { localStorage.setItem('efl_gh_sha', sha); }
 function ghGetSha()    { return localStorage.getItem('efl_gh_sha') || ''; }
 
 async function ghLoad() {
+  if (IS_DEMO) return null;
   return Promise.resolve(null);
 }
 async function ghSave(data) {
+  if (IS_DEMO) return false;
   return Promise.resolve(true);
 }
 async function ghSaveWithToken(data, token) {
+  if (IS_DEMO) return false;
   if (!token) return false;
   try {
     const body = {
